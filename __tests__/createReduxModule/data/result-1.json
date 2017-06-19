@@ -1,0 +1,12 @@
+{
+  "list": {
+    "all": [],
+    "bob's list": [
+      {
+        "id": 1,
+        "title": "test1"
+      }
+    ]
+  },
+  "entities": {}
+}
