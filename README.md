@@ -1,3 +1,7 @@
-# Js App Boilerplate
+# redux-modular-model
 
-This is a js app boilerplate with batteries included to speed up project initiation.
+`redux-modular-model` are simple utility functions to create reusable redux modules.
+
+## References
+
+- [Reusing Reducer Logic](http://redux.js.org/docs/recipes/reducers/ReusingReducerLogic.html)
