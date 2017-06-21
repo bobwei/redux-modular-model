@@ -1,9 +1,13 @@
 {
-  "name": "createReduxModule",
+  "name": "redux-modular-model",
   "version": "1.0.0",
   "description": "",
+  "main": "./lib/index.js",
   "scripts": {
     "start": "babel-node src/index.js",
+    "build": "yarn run build:lib",
+    "build:lib": "babel src --out-dir lib --ignore __tests__",
+    "build:watch": "babel src --watch --out-dir lib --ignore __tests__",
     "precommit": "lint-staged --verbose",
     "format": "prettier --single-quote --trailing-comma all '{src,__{tests,mocks}__}/**/*.{js,jsx}' --write",
     "test": "jest --onlyChanged --watch",

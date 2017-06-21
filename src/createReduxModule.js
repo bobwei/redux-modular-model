@@ -1,5 +1,7 @@
-import { handleActions, createAction } from 'redux-actions';
-import { assocPath } from 'ramda';
+import { handleActions } from 'redux-actions';
+import R from 'ramda';
+
+import createActions from './createActions';
 
 const createReduxModule = (
   {
@@ -7,6 +9,7 @@ const createReduxModule = (
     keyField = 'objectId',
   } = {},
 ) => {
+  /* initialState */
   const initialState = {
     list: {
       all: [],
@@ -14,28 +17,30 @@ const createReduxModule = (
     entities: {},
   };
 
-  const setList = createAction(
-    `${modulePrefix}:setList`,
-    undefined,
-    (payload, { path } = {}) => assocPath(['path'], path, {}),
-  );
-  const setDetail = createAction(`${modulePrefix}:setDetail`);
+  /* actions */
+  const actions = createActions(modulePrefix);
+  const { concat, setDetail } = actions;
 
+  /* reducer */
   const reducer = handleActions(
     {
-      [setList]: (state, { payload, meta: { path = 'all' } }) =>
-        assocPath(['list', path], payload, state),
+      [concat]: (state, { payload, meta: { listId } }) =>
+        R.compose(
+          R.assocPath(['list', listId], R.__, state),
+          R.concat(payload),
+          R.pathOr([], ['list', listId]),
+          R.always(state),
+        )(),
       [setDetail]: (state, { payload }) =>
-        assocPath(['entities', payload[keyField]], payload, state),
+        R.assocPath(['entities', payload[keyField]], payload, state),
     },
     initialState,
   );
 
   return {
     initialState,
-    setList,
-    setDetail,
-    default: reducer,
+    actions,
+    reducer,
   };
 };
 
