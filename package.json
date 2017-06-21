@@ -14,6 +14,7 @@
     "test:all": "jest",
     "lint-staged": "lint-staged --verbose",
     "flow": "flow",
+    "prepublish": "yarn run test:all && yarn run build",
     "dev": "nodemon src/index.js --exec babel-node"
   },
   "author": "bob61016@gmail.com",
@@ -48,6 +49,7 @@
   "jest": {
     "verbose": true,
     "testPathIgnorePatterns": [
+      "<rootDir>/examples/",
       "<rootDir>/__tests__/env-setup.js",
       "<rootDir>/node_modules/"
     ],
