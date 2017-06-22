@@ -1,14 +1,22 @@
 import { createAction } from 'redux-actions';
 
 const createActions = modulePrefix => {
+  const listMetaCreator = (payload, { listId = 'all' } = {}) => ({ listId });
+
+  const clear = createAction(
+    `${modulePrefix}:clear`,
+    undefined,
+    listMetaCreator,
+  );
   const concat = createAction(
     `${modulePrefix}:concat`,
     undefined,
-    (payload, { listId = 'all' } = {}) => ({ listId }),
+    listMetaCreator,
   );
   const setDetail = createAction(`${modulePrefix}:setDetail`);
 
   return {
+    clear,
     concat,
     setDetail,
   };

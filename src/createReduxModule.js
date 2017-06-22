@@ -19,11 +19,13 @@ const createReduxModule = (
 
   /* actions */
   const actions = createActions(modulePrefix);
-  const { concat, setDetail } = actions;
+  const { clear, concat, setDetail } = actions;
 
   /* reducer */
   const reducer = handleActions(
     {
+      [clear]: (state, { meta: { listId } }) =>
+        R.assocPath(['list', listId], [], state),
       [concat]: (state, { payload, meta: { listId } }) =>
         R.compose(
           R.assocPath(['list', listId], R.__, state),

@@ -11,16 +11,19 @@ it('can createReduxModule', () => {
   expect(getState()).toEqual(require('./data/initialState.json'));
 });
 
-it('can concat and setDetail', () => {
+it('can clear, concat and setDetail', () => {
   const {
     initialState,
-    actions: { concat, setDetail },
+    actions: { clear, concat, setDetail },
     reducer,
   } = createReduxModule({ keyField: 'id' });
   const { getState, dispatch } = createStore(reducer, initialState);
+  dispatch(clear());
   dispatch(concat([{ id: 1, title: 'test1' }]));
   dispatch(setDetail({ id: 2, title: 'test2' }));
   expect(getState()).toEqual(require('./data/result-0.json'));
+  dispatch(clear());
+  expect(getState().list.all).toEqual([]);
 });
 
 it('can concat to different listId', () => {
